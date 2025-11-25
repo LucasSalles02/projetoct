@@ -1,0 +1,164 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'materiais/css/formulario.css' %}">
+{% endblock extra_head %}
+
+{% block title %}{{ titulo }}{% endblock title %}
+
+{% block page_title %}{{ titulo }}{% endblock %}
+
+{% block content %}
+
+<div class="form-container">
+    
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="form-card">
+        <form method="post">
+            {% csrf_token %}
+            
+            <h3 style="margin-bottom: 25px; color: #333;">📋 Dados do Aluno</h3>
+            
+            <div class="form-group">
+                <label for="{{ form.nome.id_for_label }}" class="required">{{ form.nome.label }}</label>
+                {{ form.nome }}
+                {% if form.nome.errors %}
+                    <span class="error">{{ form.nome.errors.0 }}</span>
+                {% endif %}
+            </div>
+
+            <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div class="form-group">
+                    <label for="{{ form.cpf.id_for_label }}" class="required">{{ form.cpf.label }}</label>
+                    {{ form.cpf }}
+                    <span class="form-help">Apenas números</span>
+                    {% if form.cpf.errors %}
+                        <span class="error">{{ form.cpf.errors.0 }}</span>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.data_nascimento.id_for_label }}" class="required">{{ form.data_nascimento.label }}</label>
+                    {{ form.data_nascimento }}
+                    {% if form.data_nascimento.errors %}
+                        <span class="error">{{ form.data_nascimento.errors.0 }}</span>
+                    {% endif %}
+                </div>
+            </div>
+
+            <h3 style="margin: 30px 0 25px; color: #333;">📍 Endereço</h3>
+
+            <div class="form-group">
+                <label for="{{ form.endereco.id_for_label }}" class="required">{{ form.endereco.label }}</label>
+                {{ form.endereco }}
+                {% if form.endereco.errors %}
+                    <span class="error">{{ form.endereco.errors.0 }}</span>
+                {% endif %}
+            </div>
+
+            <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr 120px; gap: 20px;">
+                <div class="form-group">
+                    <label for="{{ form.bairro.id_for_label }}" class="required">{{ form.bairro.label }}</label>
+                    {{ form.bairro }}
+                    {% if form.bairro.errors %}
+                        <span class="error">{{ form.bairro.errors.0 }}</span>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.cidade.id_for_label }}" class="required">{{ form.cidade.label }}</label>
+                    {{ form.cidade }}
+                    {% if form.cidade.errors %}
+                        <span class="error">{{ form.cidade.errors.0 }}</span>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.cep.id_for_label }}" class="required">{{ form.cep.label }}</label>
+                    {{ form.cep }}
+                    {% if form.cep.errors %}
+                        <span class="error">{{ form.cep.errors.0 }}</span>
+                    {% endif %}
+                </div>
+            </div>
+
+            <h3 style="margin: 30px 0 25px; color: #333;">👤 Dados do Responsável</h3>
+
+            <div class="form-group">
+                <label for="{{ form.nome_responsavel.id_for_label }}" class="required">{{ form.nome_responsavel.label }}</label>
+                {{ form.nome_responsavel }}
+                {% if form.nome_responsavel.errors %}
+                    <span class="error">{{ form.nome_responsavel.errors.0 }}</span>
+                {% endif %}
+            </div>
+
+            <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div class="form-group">
+                    <label for="{{ form.cpf_responsavel.id_for_label }}" class="required">{{ form.cpf_responsavel.label }}</label>
+                    {{ form.cpf_responsavel }}
+                    <span class="form-help">Apenas números</span>
+                    {% if form.cpf_responsavel.errors %}
+                        <span class="error">{{ form.cpf_responsavel.errors.0 }}</span>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.numero_responsavel.id_for_label }}" class="required">{{ form.numero_responsavel.label }}</label>
+                    {{ form.numero_responsavel }}
+                    <span class="form-help">Apenas números com DDD</span>
+                    {% if form.numero_responsavel.errors %}
+                        <span class="error">{{ form.numero_responsavel.errors.0 }}</span>
+                    {% endif %}
+                </div>
+            </div>
+
+            <h3 style="margin: 30px 0 25px; color: #333;">🏄 Informações da Matrícula</h3>
+
+            <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div class="form-group">
+                    <label for="{{ form.turma.id_for_label }}">{{ form.turma.label }}</label>
+                    {{ form.turma }}
+                    {% if form.turma.errors %}
+                        <span class="error">{{ form.turma.errors.0 }}</span>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.situacao.id_for_label }}" class="required">{{ form.situacao.label }}</label>
+                    {{ form.situacao }}
+                    {% if form.situacao.errors %}
+                        <span class="error">{{ form.situacao.errors.0 }}</span>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.observacoes.id_for_label }}">{{ form.observacoes.label }}</label>
+                {{ form.observacoes }}
+                {% if form.observacoes.errors %}
+                    <span class="error">{{ form.observacoes.errors.0 }}</span>
+                {% endif %}
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn-submit">
+                    {% if aluno %}✓ Atualizar Cadastro{% else %}✓ Salvar Inscrição{% endif %}
+                </button>
+                <a href="{% url 'alunos:lista_alunos' %}" class="btn-cancel">Cancelar</a>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+{% endblock content %}

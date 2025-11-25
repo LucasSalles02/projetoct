@@ -1,0 +1,36 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'materiais/css/materiais.css' %}">
+{% endblock extra_head %}
+
+{% block title %}{{ material.titulo }}{% endblock title %}
+
+{% block page_title %}{{ material.titulo }}{% endblock %}
+
+{% block content %}
+<div class="detalhe-container">
+    <div class="voltar-btn">
+        <a href="{% url 'materiais:acesso_publico' %}">← Voltar para lista</a>
+    </div>
+
+    <article class="material-detalhe">
+        <header class="material-header">
+            <span class="tipo-badge tipo-{{ material.tipo }}">{{ material.get_tipo_display }}</span>
+            <h1>{{ material.titulo }}</h1>
+            <p class="meta">Publicado em {{ material.data_publicacao|date:"d/m/Y às H:i" }}</p>
+        </header>
+
+        {% if material.imagem %}
+        <div class="material-imagem-principal">
+            <img src="{{ material.imagem.url }}" alt="{{ material.titulo }}">
+        </div>
+        {% endif %}
+
+        <div class="material-corpo">
+            {{ material.conteudo|linebreaks }}
+        </div>
+    </article>
+</div>
+{% endblock content %}

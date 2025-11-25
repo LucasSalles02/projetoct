@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Escola de Surf{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'core/css/main.css' %}">
+
+     {# espaço para CSS extra das páginas filhas #}
+    {% block extra_head %}{% endblock extra_head %}
+</head>
+<body>
+    
+    <aside class="sidebar">
+        <div class="logo">
+            <img src="{% static 'core/images/logo.png' %}" alt="Logo Escola de Surf">
+            <h1>Escola de<br>Surf</h1>
+        </div>
+        <nav class="main-menu">
+            <ul>
+                <!-- Menu Alunos -->
+                <li class="menu-item has-submenu">
+                    <a href="#" class="menu-toggle">
+                        <span>Alunos</span>
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="{% url 'alunos:lista_alunos' %}">Lista de Alunos</a></li>
+                        <li><a href="{% url 'alunos:cadastro_aluno' %}">Nova Inscrição</a></li>
+                    </ul>
+                </li>
+
+                <!-- Menu Turmas -->
+                <li class="menu-item has-submenu">
+                    <a href="#" class="menu-toggle">
+                        <span>Turmas</span>
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="#">Lista de Turmas</a></li>
+                        <li><a href="#">Nova Turma</a></li>
+                        <li><a href="#">Horários</a></li>
+                    </ul>
+                </li>
+
+                <!-- Menu Acesso Público -->
+                <li class="menu-item has-submenu">
+                    <a href="#" class="menu-toggle">
+                        <span>Acesso Público</span>
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="{% url 'materiais:lista_materiais_admin' %}">Gerenciar Materiais</a></li>
+                        <li><a href="{% url 'materiais:cadastro_material' %}">Publicar Material</a></li>
+                        <li><a href="{% url 'materiais:acesso_publico' %}" target="_blank">👁 Ver Página Pública</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main class="content">
+        <header class="topbar">
+            <div class="topbar-left">
+                <h2>{% block page_title %}Bem Vindo!{% endblock %}</h2>
+            </div>
+            <div class="topbar-right">
+                <div class="user-profile-button">
+                    <span class="profile-icon"></span> <div class="user-info">
+                        <span class="user-name">Usuário</span> <span class="user-role">Instrutor</span>
+                    </div>
+                    <div class="user-avatar">
+                        <img src="{% static 'core/images/default-avatar.png' %}" alt="Avatar">
+                    </div>
+                 </div>
+            </div>
+        </header>
+        
+        <div class="main-content">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </main>
+
+    <script src="{% static 'core/js/main.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+{% extends 'core/base.html' %} 
+{% load static %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'alunos/css/listagem.css' %}">
+{% endblock extra_head %}
+
+{% block title %}{{ titulo }}{% endblock title %}
+
+{% block page_title %}Lista de Alunos{% endblock %}
+
+{% block content %}
+
+    <div class="list-container">
+        
+        <div class="actions-header">
+            <div>
+                <a href="{% url 'alunos:cadastro_aluno' %}" class="action-button">
+                    + Nova Inscrição
+                </a>
+                
+                <span class="action-button active-button">
+                    Lista de Inscrições
+                </span>
+            </div>
+        </div>
+
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <div class="list-card">
+            <table class="alunos-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome do Aluno</th>
+                        <th>CPF</th>
+                        <th>Responsável</th>
+                        <th>Telefone</th>
+                        <th>Turma</th>
+                        <th>Situação</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for aluno in alunos %}
+                    <tr>
+                        <td>{{ aluno.id|stringformat:"03d" }}</td>
+                        <td><strong>{{ aluno.nome }}</strong></td>
+                        <td>{{ aluno.cpf }}</td>
+                        <td>{{ aluno.nome_responsavel }}</td>
+                        <td>{{ aluno.numero_responsavel }}</td>
+                        <td>{{ aluno.turma.nome|default:"-" }}</td>
+                        <td>
+                            {% if aluno.situacao == 'ativo' %}
+                                <span class="status-ativo">Ativo</span>
+                            {% elif aluno.situacao == 'inativo' %}
+                                <span class="status-inativo">Inativo</span>
+                            {% else %}
+                                <span class="status-pendente">Pendente</span>
+                            {% endif %}
+                        </td>
+                        <td class="actions-cell">
+                            <a href="{% url 'alunos:detalhe_aluno' aluno.pk %}" class="action-icon icon-view" title="Ver detalhes">👁️</a>
+                            <a href="{% url 'alunos:editar_aluno' aluno.pk %}" class="action-icon icon-config" title="Editar">✏️</a>
+                            <a href="{% url 'alunos:deletar_aluno' aluno.pk %}" class="action-icon icon-delete" title="Excluir" data-confirm="Tem certeza que deseja excluir o aluno {{ aluno.nome }}?">❌</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="8" style="text-align: center; padding: 30px; color: #888;">
+                            Nenhum aluno cadastrado. 
+                            <a href="{% url 'alunos:cadastro_aluno' %}">Clique aqui para cadastrar o primeiro</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+{% endblock content %}

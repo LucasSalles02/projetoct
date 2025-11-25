@@ -1,0 +1,222 @@
+/* Definições globais */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    background-color: #f0f2f5;
+    min-height: 100vh;
+}
+
+/* Estilos para a barra lateral */
+.sidebar {
+    width: 250px;
+    background-color: rgb(145, 180, 192);
+    color: #fff;
+    padding: 20px 0;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar .logo {
+    display: flex;
+    align-items: center;
+    padding: 0 20px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    margin-bottom: 20px;
+}
+
+.sidebar .logo img {
+    width: 50px;
+    height: auto;
+    margin-right: 15px;
+}
+
+.sidebar .logo h1 {
+    font-size: 1.5em;
+    margin: 0;
+    line-height: 1.2;
+    color: #fff;
+}
+
+/* Estilos para o menu de navegação */
+.sidebar .main-menu {
+    flex-grow: 1;
+}
+
+.sidebar .main-menu > ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar .main-menu .menu-item {
+    position: relative;
+}
+
+/* Link principal do menu */
+.sidebar .main-menu .menu-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 20px;
+    color: #fff;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+.sidebar .main-menu .menu-toggle:hover {
+    background-color: #6a90ab;
+}
+
+.sidebar .main-menu .menu-toggle::after {
+    content: '>';
+    font-size: 1.2em;
+    font-weight: bold;
+    font-family: "Segoe UI Symbol", "Apple Symbols";
+    transition: transform 0.3s ease;
+}
+
+/* Rotacionar seta quando menu está aberto */
+.sidebar .main-menu .menu-item.active .menu-toggle::after {
+    transform: rotate(90deg);
+}
+
+/* Submenu */
+.sidebar .submenu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 0;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.1);
+    transition: max-height 0.3s ease;
+}
+
+.sidebar .menu-item.active .submenu {
+    max-height: 500px;
+}
+
+.sidebar .submenu li {
+    border-left: 3px solid transparent;
+    transition: border-color 0.3s ease;
+}
+
+.sidebar .submenu li:hover {
+    border-left-color: #fff;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.sidebar .submenu a {
+    display: block;
+    padding: 12px 20px 12px 40px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.95em;
+    transition: padding-left 0.3s ease;
+}
+
+.sidebar .submenu a:hover {
+    padding-left: 45px;
+}
+
+/* Destaque para o item ativo no submenu */
+.sidebar .submenu a.active {
+    background-color: rgba(255, 255, 255, 0.2);
+    font-weight: bold;
+}
+
+/* Estilos para o conteúdo principal */
+.content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Estilos para a barra superior */
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    height: 60px;
+}
+
+.topbar-left h2 {
+    margin: 0;
+    color: #333;
+    font-size: 1.5em;
+}
+
+/* Estilos para a área do usuário */
+.user-profile-button {
+    display: flex;
+    align-items: center;
+    background-color: rgb(145, 180, 192);
+    border-radius: 30px;
+    padding: 8px 20px 8px 10px;
+    color: #fff;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+.user-profile-button:hover {
+    background-color: #6a90ab;
+}
+
+.user-profile-button .profile-icon {
+    font-family: "Segoe UI Symbol", "Apple Symbols";
+    font-size: 1.5em;
+    margin-right: 10px;
+}
+
+.user-profile-button .profile-icon::before {
+    content: '→';
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.user-profile-button .user-info {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-right: 15px;
+}
+
+.user-profile-button .user-name {
+    font-weight: bold;
+    color: #fff;
+    font-size: 1em;
+    white-space: nowrap;
+}
+
+.user-profile-button .user-role {
+    font-size: 0.8em;
+    color: #e0e0e0;
+    text-decoration: underline;
+}
+
+.user-profile-button .user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid #fff;
+    flex-shrink: 0;
+}
+
+.user-profile-button .user-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Espaço para o conteúdo da página */
+.main-content {
+    padding: 30px;
+}

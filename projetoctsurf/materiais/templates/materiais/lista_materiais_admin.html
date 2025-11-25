@@ -1,0 +1,96 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'materiais/css/materiais.css' %}">
+    <link rel="stylesheet" href="{% static 'alunos/css/listagem.css' %}">
+{% endblock extra_head %}
+
+{% block title %}{{ titulo }}{% endblock title %}
+
+{% block page_title %}Gerenciar Materiais{% endblock %}
+
+{% block content %}
+
+<div class="list-container">
+    
+    <div class="actions-header">
+        <div>
+            <a href="{% url 'materiais:cadastro_material' %}" class="action-button">
+                + Publicar Material
+            </a>
+            
+            <span class="action-button active-button">
+                Lista de Materiais
+            </span>
+            
+            <a href="{% url 'materiais:acesso_publico' %}" class="action-button" target="_blank">
+                👁 Ver Página Pública
+            </a>
+        </div>
+    </div>
+
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="list-card">
+        <table class="alunos-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Título</th>
+                    <th>Tipo</th>
+                    <th>Data Publicação</th>
+                    <th>Status</th>
+                    <th>Destaque</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for material in materiais %}
+                <tr>
+                    <td>{{ material.id|stringformat:"03d" }}</td>
+                    <td>{{ material.titulo }}</td>
+                    <td><span class="tipo-badge tipo-{{ material.tipo }}">{{ material.get_tipo_display }}</span></td>
+                    <td>{{ material.data_publicacao|date:"d/m/Y H:i" }}</td>
+                    <td>
+                        {% if material.ativo %}
+                            <span class="status-ativo">Publicado</span>
+                        {% else %}
+                            <span class="status-inativo">Rascunho</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if material.destaque %}
+                            <span style="color: gold; font-size: 1.2em;">⭐</span>
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{% url 'materiais:editar_material' material.pk %}" class="action-icon icon-config" title="Editar">✏️</a>
+                        <a href="{% url 'materiais:deletar_material' material.pk %}" class="action-icon icon-delete" title="Excluir" onclick="return confirm('Tem certeza que deseja excluir este material?')">❌</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="7" style="text-align: center; padding: 30px; color: #888;">
+                        Nenhum material cadastrado. 
+                        <a href="{% url 'materiais:cadastro_material' %}">Clique aqui para publicar o primeiro</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+{% endblock content %}
